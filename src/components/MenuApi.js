@@ -4,7 +4,7 @@ const Menu = [
     "item_name": "Chicken Burger",
     "category": "nonveg",
     "price": 70.00,
-    "image_url": "/images/chickenburger.jpg"
+    "image_url":"/images/chickenburger.jpg"
   },
   {
     "item_id": 2,
