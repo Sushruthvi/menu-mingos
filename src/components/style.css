@@ -136,10 +136,11 @@
   }
   
   .card-media {
-    max-width: 100%;
-    height: auto;
+    width: 600px; 
+    height:500px;
+    object-fit: contain; /* Ensures the image fits within the given dimensions */
+    border-radius: 8px; /* Optional: adds rounded corners */
   }
-  
   .card-shadow {
     background-color: #fff;
     box-shadow: 0 2px 25px 2px rgba(0, 0, 0, 1), 0 2px 50px 2px rgba(0, 0, 0, 1),
