@@ -20,7 +20,8 @@ const Navbar = ({ filterItem, menuList }) => {
             
           );
         })}
-         <NavLink to="/orders" className='link-to-orders'>
+        
+         <NavLink to="/orders" className='link-to-orders' >
          <MdBorderColor/> Orders
         </NavLink>
        

@@ -1,4 +1,5 @@
 import React from 'react'
+import AddtoCart from './AddtoCart';
 
 const MenuCard = ({menuData}) => {
     //    console.log(menuData);
@@ -22,7 +23,7 @@ const MenuCard = ({menuData}) => {
      
       <img src={image_url} alt={item_name} className='card-media' />
       <div className='card-price subtle'>Price:{price}</div> 
-      <span className='card-tag subtle'>Order Now</span>
+      <span className='card-tag subtle'><AddtoCart curElem={curElem}/></span>
     </div>
   </div>
 </div>
