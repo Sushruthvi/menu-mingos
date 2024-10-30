@@ -27,7 +27,7 @@ const Orders = () => {
         <div className="order-total--amount">
           <div className="order-total--subdata">
             <div>
-              <p>Subtotal:</p>
+              <p>Total Price:</p>
               <p>{total_price}</p>
           </div>
           </div>
