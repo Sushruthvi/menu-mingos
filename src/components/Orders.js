@@ -5,7 +5,7 @@ import { useCartContext } from '../context/cart_context'
 import CartItem from './CartItem';
 
 const Orders = () => {
-  const {cart}=useCartContext();
+  const {cart, total_price}=useCartContext();
   console.log(cart); 
   return (
     <Wrapper>
@@ -22,6 +22,15 @@ const Orders = () => {
           {cart.map((cur) => {
             return <CartItem key={cur.id} {...cur} />;
           })}
+
+        </div>
+        <div className="order-total--amount">
+          <div className="order-total--subdata">
+            <div>
+              <p>Subtotal:</p>
+              <p>{total_price}</p>
+          </div>
+          </div>
         </div>
     </div>
     </Wrapper>

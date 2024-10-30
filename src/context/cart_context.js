@@ -26,6 +26,7 @@ const removeItem=(id)=>{
     dispatch({type:"REMOVE_ITEM", payload:id})
 }
 useEffect(()=>{
+    dispatch({type:"TOTAL_AMOUNT"})
     localStorage.setItem("mycart", JSON.stringify(state.cart))
 },[state.cart])
 
