@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Restaurant from './components/Restaurant'; 
 import Orders from './components/Orders';
 import Token from './components/Token';
+import Welcome from './components/Welcome';
+import Signup from './components/SignUp';
+import Login from './components/Login';
 
 const App = () => {
   const theme = {
@@ -32,11 +35,14 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path='/' element={<Restaurant />} />
-          <Route path='/Orders' element={<Orders />} />
-          <Route path='/Token' element={<Token />} />
+          <Route path='/' element={<Welcome />} /> {/* Add Welcome as the landing page */}
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/restaurant' element={<Restaurant />} /> {/* Changed from root path */}
+          <Route path='/orders' element={<Orders />} />
+          <Route path='/token' element={<Token />} />
         </Routes>
-      </Router>
+      </Router> 
     </ThemeProvider>
   );
 }
