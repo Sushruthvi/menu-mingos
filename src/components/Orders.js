@@ -36,12 +36,13 @@ const Orders = () => {
 };
 
 const Wrapper = styled.section`
-  padding: 9rem 0;
+  padding: 3rem 0;
   .container {
-    max-width: 1200px;
+    max-width: 1500px;
     margin: auto;
+  
   }
-
+  background: #f9f9f9;
   .cart_heading,
   .cart-item-row {
     display: grid;

@@ -1,5 +1,4 @@
 import React from 'react';
-import CartAmountToggle from './CartAmountToggle';
 import { FaTrash } from "react-icons/fa";
 import { useCartContext } from '../context/cart_context';
 
@@ -16,7 +15,7 @@ const CartItem = ({ id, name, category, price, amount }) => {
 
       {/* Price */}
       <div className="cart-hide">
-        <p>${price}</p>
+        <p>{price}</p>
       </div>
 
       {/* Quantity Adjustment */}
@@ -26,7 +25,7 @@ const CartItem = ({ id, name, category, price, amount }) => {
 
       {/* Subtotal */}
       <div className="cart-hide">
-        <p>${price * amount}</p>
+        <p>{price * amount}</p>
       </div>
 
       {/* Remove Button */}
