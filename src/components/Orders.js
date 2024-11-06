@@ -28,6 +28,9 @@ const Orders = () => {
               <p>Total Price:</p>
               <p>{total_price}</p>
             </div>
+            <div className='button-30'>
+              <button style={{ width: '100%',color: 'black',backgroundColor: '#ffff00',cursor: 'pointer',}}>Confirm Order</button>
+            </div>
           </div>
         </div>
       </div>
@@ -89,6 +92,8 @@ const Wrapper = styled.section`
     justify-content: space-between;
     font-weight: bold;
   }
+
+
 
   @media (max-width: 768px) {
     .cart_heading,
