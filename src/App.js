@@ -35,10 +35,10 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path='/' element={<Welcome />} /> {/* Add Welcome as the landing page */}
+          <Route path='/' element={<Welcome />} /> 
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login/>}/>
-          <Route path='/restaurant' element={<Restaurant />} /> {/* Changed from root path */}
+          <Route path='/restaurant' element={<Restaurant />} /> 
           <Route path='/orders' element={<Orders />} />
           <Route path='/token' element={<Token />} />
         </Routes>

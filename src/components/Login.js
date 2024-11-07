@@ -1,35 +1,25 @@
-// src/components/Signup.js
+// src/components/Login.js
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './styles.css';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import './styles.css';
 
-const Login = () => {
-  const [data, setData] = useState({
-    userId: '',
-    password: ''
-  });
-  const [error, setError] = useState(""); 
+function Login(){
+  const [userid, setUserid] = useState()
+  const [password, setPassword] = useState()
+  const navigate = useNavigate()
 
-  const handleChange = ({ currentTarget: input}) => {
-    setData({...data,[input.name]: input.value})
-  }
-
-  const handleSubmit= async (e) => {
-    e.preventDefault();
-    try{
-      const url = "http://localhost:8080/api/auth";
-      const {data:res} = await axios.post(url,data);
-      localStorage.setItem("token", res.data);
-      window.location = "/restaurant"
-    } catch(error){
-      if(error.response &&
-         error.response.status >= 400 &&
-         error.response <= 500
-      ){
-        setError(error.response.data.message)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios.post('http://localhost:3001/login', {userid,password})
+    .then(result => {
+      console.log(result)
+      if(result.data === "Login Successful") {
+        navigate('/restaurant')
       }
-    }
+    })
+    .catch(err => console.log(err))
   }
 
   return (
@@ -41,7 +31,7 @@ const Login = () => {
           </div>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/login">Sign Up</Link></li>
+            <li><Link to="/signup">Sign Up</Link></li>
             <li><a href="#location">Location</a></li>
             <li><a href="#info">Info</a></li>
             <li><a href="#help">Help</a></li>
@@ -51,7 +41,6 @@ const Login = () => {
       <div className="login-container">
         <h1><span>Menu</span> Mingos</h1>
         <h2><span>LOGIN</span></h2>
-        {error && <div className="error-message">{error}</div>}
         <form className="login-form" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="userId">User ID</label>
@@ -59,9 +48,8 @@ const Login = () => {
               type="text"
               id="userId"
               name="userId"
-              value={data.usn}
-              onChange={handleChange}
               placeholder="Enter your USN"
+              onChange={(e) => setUserid(e.target.value)}
               required
             />
             <label htmlFor="password">Password</label>
@@ -69,9 +57,8 @@ const Login = () => {
               type="password"
               id="password"
               name="password"
-              value={data.password}
-              onChange={handleChange}
               placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
