@@ -2,14 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { useCartContext } from '../context/cart_context';
 import CartItem from './CartItem';
+import { useUserContext } from '../context/UserContext';
 
 const Orders = () => {
   const { cart, total_price } = useCartContext();
-
+  const {userid}=useUserContext()
+  console.log("User ID:", userid);
   // Function to handle order confirmation
   const handleConfirmOrder = async () => {
+ 
     const orderData = {
-      userid: "user123", // Replace with actual user ID from context if available
+    
+      userid: userid, // Replace with actual user ID from context if available
       cartItems: cart.map((item) => ({
         id: item.id,
         name: item.name,
@@ -30,6 +34,7 @@ const Orders = () => {
 
       if (response.ok) {
         console.log("Order confirmed successfully");
+       console.log("User ID:", userid);
         // Optionally, reset cart or provide feedback to the user
       } else {
         console.error("Failed to confirm order");

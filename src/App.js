@@ -7,6 +7,7 @@ import Token from './components/Token';
 import Welcome from './components/Welcome';
 import Signup from './components/SignUp';
 import Login from './components/Login';
+import { UserProvider } from './context/UserContext';
 
 const App = () => {
   const theme = {
@@ -32,17 +33,22 @@ const App = () => {
   };
 
   return (
+
     <ThemeProvider theme={theme}>
+      <UserProvider>
       <Router>
         <Routes>
           <Route path='/' element={<Welcome />} /> 
+          
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login/>}/>
           <Route path='/restaurant' element={<Restaurant />} /> 
           <Route path='/orders' element={<Orders />} />
           <Route path='/token' element={<Token />} />
+
         </Routes>
       </Router> 
+      </UserProvider>
     </ThemeProvider>
   );
 }

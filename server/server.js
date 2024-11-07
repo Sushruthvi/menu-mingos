@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -68,6 +69,40 @@ app.post("/login", async (req, res) => {
 });
 
 // Route to create a new order from cart items
+app.post("/order", async (req, res) => {
+    console.log("Request body received at server:", req.body); 
+    const { userid, cartItems } = req.body;
+
+    if (!cartItems || cartItems.length === 0) {
+        return res.status(400).send("No items in cart to create an order.");
+    }
+
+    const order_total = cartItems.reduce((sum, item) => sum + (item.price * item.amount), 0);
+    const lastOrder = await Order.findOne().sort({ order_number: -1 });
+    const newOrderNumber = lastOrder ? lastOrder.order_number + 1 : 1;
+
+    // Debugging - Check userid value
+    console.log("Received userid from request:", userid);
+
+    const newOrder = new Order({
+        order_id: cartItems[0].id, 
+        order_number: newOrderNumber,
+        user_id: userid || "user", // Use `userid` or default to "user"
+        order_total,
+    });
+
+    // Debugging - Check newOrder before saving
+    console.log("New Order Object:", newOrder);
+
+    try {
+        const savedOrder = await newOrder.save();
+        console.log("Order saved successfully:", savedOrder);
+        res.send(savedOrder);
+    } catch (error) {
+        console.error("Error saving order:", error);
+        res.status(500).send("Failed to save order");
+    }
+});
 
 // Existing routes for Cart
 app.post("/cart", async (req, res) => {

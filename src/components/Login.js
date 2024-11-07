@@ -1,26 +1,27 @@
-// src/components/Login.js
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../context/UserContext'; // Import the context
 import './styles.css';
 
-function Login(){
-  const [userid, setUserid] = useState()
-  const [password, setPassword] = useState()
-  const navigate = useNavigate()
+function Login() {
+  const [userid, setUserid] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
+  const { setUserId } = useUserContext(); // Access context's setUserId
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    axios.post('http://localhost:5000/login', {userid,password})
-    .then(result => {
-      console.log(result)
-      if(result.data === "Login Successful") {
-        navigate('/restaurant')
-      }
-    })
-    .catch(err => console.log(err))
-  }
+    e.preventDefault();
+    axios.post('http://localhost:5000/login', { userid, password })
+      .then(result => {
+        if (result.data === "Login Successful") {
+          setUserId(userid); // Set userid in context
+          navigate('/restaurant');
+        }
+      })
+      .catch(err => console.log(err));
+  };
 
   return (
     <div>
@@ -62,13 +63,11 @@ function Login(){
               required
             />
           </div>
-          <span><button type="submit">
-           Login
-          </button></span>
+          <span><button type="submit">Login</button></span>
         </form>
       </div>
     </div>
   );
-};
+}
 
 export default Login;
