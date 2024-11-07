@@ -39,6 +39,7 @@ const Orders = () => {
 };
 
 const Wrapper = styled.section`
+ color: black;
   padding: 3rem 0;
   .container {
     max-width: 1500px;
