@@ -14,7 +14,7 @@ function SignUp(){
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:3001/register', {username,userid,email,password})
+    axios.post('http://localhost:5000/register', {username,userid,email,password})
     .then(result => {console.log(result)
     navigate('/restaurant')
     })

@@ -43,3 +43,35 @@ app.delete("/cart/:id", async (req, res) => {
 app.listen(5000, () => {
     console.log("Server running on port 5000");
 });
+// Add a user schema
+const userSchema = new mongoose.Schema({
+    username: String,
+    userid: String,
+    email: String,
+    password: String,
+});
+
+const User = mongoose.model("User", userSchema);
+
+// Register route
+app.post("/register", async (req, res) => {
+    const { username, userid, email, password } = req.body;
+    const userExists = await User.findOne({ userid });
+    if (userExists) {
+        return res.status(400).send("User ID already exists");
+    }
+    const newUser = new User({ username, userid, email, password });
+    await newUser.save();
+    res.send("Registration Successful");
+});
+
+// Login route
+app.post("/login", async (req, res) => {
+    const { userid, password } = req.body;
+    const user = await User.findOne({ userid });
+    if (user && user.password === password) {
+        res.send("Login Successful");
+    } else {
+        res.status(400).send("Invalid credentials");
+    }
+});
