@@ -6,6 +6,39 @@ import CartItem from './CartItem';
 const Orders = () => {
   const { cart, total_price } = useCartContext();
 
+  // Function to handle order confirmation
+  const handleConfirmOrder = async () => {
+    const orderData = {
+      userid: "user123", // Replace with actual user ID from context if available
+      cartItems: cart.map((item) => ({
+        id: item.id,
+        name: item.name,
+        amount: item.amount,
+        price: item.price,
+        category: item.category,
+      })),
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (response.ok) {
+        console.log("Order confirmed successfully");
+        // Optionally, reset cart or provide feedback to the user
+      } else {
+        console.error("Failed to confirm order");
+      }
+    } catch (error) {
+      console.error("Error confirming order:", error);
+    }
+  };
+
   return (
     <Wrapper>
       <div className="container">
@@ -28,8 +61,18 @@ const Orders = () => {
               <p>Total Price:</p>
               <p>{total_price}</p>
             </div>
-            <div className='button-30'>
-              <button style={{ width: '100%',color: 'black',backgroundColor: '#ffff00',cursor: 'pointer',}}>Confirm Order</button>
+            <div className="button-30">
+              <button
+                style={{
+                  width: '100%',
+                  color: 'black',
+                  backgroundColor: '#ffff00',
+                  cursor: 'pointer',
+                }}
+                onClick={handleConfirmOrder} // Set onClick to trigger order submission
+              >
+                Confirm Order
+              </button>
             </div>
           </div>
         </div>
@@ -37,7 +80,6 @@ const Orders = () => {
     </Wrapper>
   );
 };
-
 const Wrapper = styled.section`
  color: black;
   padding: 3rem 0;
