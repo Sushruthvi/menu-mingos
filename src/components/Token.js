@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCartContext } from '../context/cart_context';
 import { Link } from 'react-router-dom';
 
 const Token = () => {
   const { cart, total_price } = useCartContext();
+  const [tokenId, setTokenId] = useState(null);
+
+  useEffect(() => {
+    // Generate a 6-digit token ID when the component mounts
+    const generateTokenId = () => Math.floor(100000 + Math.random() * 900000);
+    setTokenId(generateTokenId());
+  }, []);
 
   return (
     <div>
@@ -92,30 +99,29 @@ const Token = () => {
           }
         `}
       </style>
-        <header>
-          <nav className="navbar">
-            <div className="logo">
-              <h2>Cafe<span>Mingo's</span></h2>
-            </div>
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/login">Login</Link></li>
-              <li><Link to="/orders">Orders</Link></li>
-            </ul>
-          </nav>
-        </header>
-        <div className="wrapper">
+      <header>
+        <nav className="navbar">
+          <div className="logo">
+            <h2>Cafe<span>Mingo's</span></h2>
+          </div>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/login">Login</Link></li>
+            <li><Link to="/orders">Orders</Link></li>
+          </ul>
+        </nav>
+      </header>
+      <div className="wrapper">
         <div className="container">
           <h1><span>Menu</span> Mingos</h1>
-          <h2>Token:</h2>
+          <h2>Token: {tokenId}</h2> {/* Display the generated token ID */}
           
           {/* Display cart items */}
           <div className="cart-item">
             {cart.length > 0 ? (
               cart.map((item) => (
-                <div key={item._id} style={{ marginBottom: '1rem' }}>
+                <div key={item.id} style={{ marginBottom: '1rem' }}>
                   <h4>{item.name}</h4>
-                  <p>Token ID: {item._id}</p> {/* Display the ObjectId */}
                   <p>Quantity: {item.amount}</p>
                   <p>Price: {item.price}</p>
                   <p>Category: {item.category}</p>
