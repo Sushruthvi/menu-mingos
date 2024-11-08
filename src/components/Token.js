@@ -31,8 +31,8 @@ const Token = () => {
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 2rem;
-            width: 90%;
-            max-width: 800px;
+            width: 80%; /* Reduced width */
+            max-width: 600px; /* Smaller maximum width */
             text-align: center;
           }
 
@@ -52,36 +52,46 @@ const Token = () => {
             color: #000000;
           }
 
-          /* Cart item styling */
-          .cart-item {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            padding: 2rem 0;
+          /* Table styling */
+          .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
           }
 
+          .cart-table th, .cart-table td {
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+          }
+
+          .cart-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+          }
+
+          /* Total price styling */
           .order-total--amount {
             margin-top: 2rem;
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* Center the total price */
             align-items: center;
           }
 
           .order-total--subdata {
-            display: flex;
-            gap: 2rem;
-            padding: 1.5rem;
+            padding: 1rem;
             border: 1px solid #e0e0e0;
             background-color: #fafafa;
-            width: 100%;
-            justify-content: space-between;
+            width: 50%; /* Reduced width */
+            max-width: 300px; /* Restrict max width */
+            text-align: center;
             font-weight: bold;
           }
 
           .total-price {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center; /* Center the text inside */
           }
 
           /* Responsive design */
@@ -89,12 +99,8 @@ const Token = () => {
             .container {
               padding: 1rem;
             }
-            .cart-item {
-              gap: 1rem;
-            }
             .order-total--subdata {
-              flex-direction: column;
-              gap: 1rem;
+              width: 70%; /* Adjust for smaller screens */
             }
           }
         `}
@@ -116,21 +122,33 @@ const Token = () => {
           <h1><span>Menu</span> Mingos</h1>
           <h2>Token: {tokenId}</h2> {/* Display the generated token ID */}
           
-          {/* Display cart items */}
-          <div className="cart-item">
-            {cart.length > 0 ? (
-              cart.map((item) => (
-                <div key={item.id} style={{ marginBottom: '1rem' }}>
-                  <h4>{item.name}</h4>
-                  <p>Quantity: {item.amount}</p>
-                  <p>Price: {item.price}</p>
-                  <p>Category: {item.category}</p>
-                </div>
-              ))
-            ) : (
-              <p>No items in the cart.</p>
-            )}
-          </div>
+          {/* Display cart items as a table */}
+          <table className="cart-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.length > 0 ? (
+                cart.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.name}</td>
+                    <td>{item.amount}</td>
+                    <td>{item.price}</td>
+                    <td>{item.category}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4">No items in the cart.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
 
           {/* Display total price */}
           <div className="order-total--amount">
