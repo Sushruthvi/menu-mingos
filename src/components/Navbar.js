@@ -1,6 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { MdBorderColor } from "react-icons/md";
 
 const Navbar = ({ filterItem, menuList }) => {
   return (
@@ -12,7 +10,7 @@ const Navbar = ({ filterItem, menuList }) => {
             <button
               className='btn-group__item'
               onClick={() => filterItem(curElem)}
-              key={curElem} // Add key for unique identifier
+              key={curElem}
             >
               {curElem}
              
@@ -20,10 +18,6 @@ const Navbar = ({ filterItem, menuList }) => {
             
           );
         })}
-        
-         <NavLink to="/orders" className='link-to-orders' >
-         <MdBorderColor/> Orders
-        </NavLink>
        
       </div>
     </nav>

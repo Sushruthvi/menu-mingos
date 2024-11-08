@@ -2,21 +2,20 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useUserContext } from '../context/UserContext'; // Import the context
+import { useUserContext } from '../context/UserContext';
 import './styles.css';
 
 function Login() {
   const [userid, setUserid] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
-  const { setUserId } = useUserContext(); // Access context's setUserId
-
+  const { setUserId } = useUserContext(); 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('http://localhost:5000/login', { userid, password })
       .then(result => {
         if (result.data === "Login Successful") {
-          setUserId(userid); // Set userid in context
+          setUserId(userid); 
           navigate('/restaurant');
         }
       })
