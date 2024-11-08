@@ -3,17 +3,16 @@ import styled from 'styled-components';
 import { useCartContext } from '../context/cart_context';
 import CartItem from './CartItem';
 import { useUserContext } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const Orders = () => {
   const { cart, total_price } = useCartContext();
-  const {userid}=useUserContext()
-  console.log("User ID:", userid);
-  // Function to handle order confirmation
+  const { userid } = useUserContext();
+  const navigate = useNavigate(); // Initialize navigate
+
   const handleConfirmOrder = async () => {
- 
     const orderData = {
-    
-      userid: userid, // Replace with actual user ID from context if available
+      userid,
       cartItems: cart.map((item) => ({
         id: item.id,
         name: item.name,
@@ -34,8 +33,8 @@ const Orders = () => {
 
       if (response.ok) {
         console.log("Order confirmed successfully");
-       console.log("User ID:", userid);
-        // Optionally, reset cart or provide feedback to the user
+        // Redirect to Token page after successful order confirmation
+        navigate("/Token"); // Use navigate instead of window.location.href
       } else {
         console.error("Failed to confirm order");
       }
@@ -74,7 +73,7 @@ const Orders = () => {
                   backgroundColor: '#ffff00',
                   cursor: 'pointer',
                 }}
-                onClick={handleConfirmOrder} // Set onClick to trigger order submission
+                onClick={handleConfirmOrder} // Set onClick to trigger order submission and redirection
               >
                 Confirm Order
               </button>
@@ -85,13 +84,14 @@ const Orders = () => {
     </Wrapper>
   );
 };
+
 const Wrapper = styled.section`
- color: black;
+  /* Styling code here remains unchanged */
+  color: black;
   padding: 3rem 0;
   .container {
     max-width: 1500px;
     margin: auto;
-  
   }
   background: #f9f9f9;
   .cart_heading,
@@ -102,34 +102,29 @@ const Wrapper = styled.section`
     align-items: center;
     text-align: center;
   }
-
   .cart_heading {
     font-weight: bold;
     text-transform: uppercase;
     border-bottom: 2px solid #f0f0f0;
     padding-bottom: 1rem;
   }
-
   hr {
     margin: 1rem 0;
     border: none;
     border-top: 1px solid #e0e0e0;
   }
-
   .cart-item {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     padding: 2rem 0;
   }
-
   .order-total--amount {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
   }
-
   .order-total--subdata {
     display: flex;
     gap: 2rem;
@@ -140,9 +135,6 @@ const Wrapper = styled.section`
     justify-content: space-between;
     font-weight: bold;
   }
-
-
-
   @media (max-width: 768px) {
     .cart_heading,
     .cart-item-row {
